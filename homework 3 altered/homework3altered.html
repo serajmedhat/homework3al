@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>game
+  </title>
+</head>
+<body>
+
+<img id = "element" style="float: right" ></img>
+<div style="float: left">
+<p> presss any key to get started</p>
+
+
+<p > wins</p>
+<p id = "win"></p>
+
+<p>current word</p>
+
+<p id = "userarray"></p>
+<p>number of guesses remaining</p>
+<p id = "nogr"></p>
+<p>letters already guessed</p>
+<p id = "log"></p>
+</div>
+
+
+
+<script type="text/javascript">
+var imgArray = new Array();
+
+imgArray[0] = new Image();
+imgArray[0].src = 'images/image1.jpg';
+
+imgArray[1] = new Image();
+imgArray[1].src = 'images/image2.jpg';
+
+imgArray[2] = new Image();
+imgArray[2].src = 'images/image3.jpg';
+
+imgArray[3] = new Image();
+imgArray[3].src = 'images/image4.jpg';
+
+imgArray[4] = new Image();
+imgArray[4].src = 'images/image5.jpg';
+
+imgArray[5] = new Image();
+imgArray[5].src = 'images/image6.jpg';
+
+imgArray[6] = new Image();
+imgArray[6].src = 'images/image7.jpg';
+
+imgArray[7] = new Image();
+imgArray[7].src = 'images/image8.jpg';
+
+imgArray[8] = new Image();
+imgArray[8].src = 'images/image9.jpg';
+
+imgArray[9] = new Image();
+imgArray[9].src = 'images/image10.jpg';
+
+
+//declaring array names
+var arraynames = ["aadolf","aaliyah","aapeli","seraj","issam","mohammad","mamdouh","waleed","ahmed","nedal"];
+//generating random number between 0 and 9
+var randomnumber = Math.floor(Math.random() * 10)
+
+var nameselected = [];
+ nameselected = arraynames[randomnumber];
+
+var numberofgusses = 0;
+var userarray = [];
+for (var i = 0 ; i < nameselected.length ; i ++){
+	userarray[i] = "-";
+}
+var a = [];
+
+var userselection = [];
+var win = 0;
+
+document.onkeyup = function(event) {
+var userguess = event.key;
+
+
+	numberofgusses +=1;
+
+	console.log(nameselected);
+if (nameselected.indexOf(userguess)!= -1){
+	numberofgusses -= 1;
+
+	for (var i = 0 ; i < nameselected.length ; i++){
+
+		if (nameselected[i] == userguess){ 
+			a.push(i);
+			} 
+			
+	}
+	for( var i = 0 ; i < a.length ; i++)
+	{
+       userarray[a[i]] = userguess;
+
+	}
+	a = [];
+document.getElementById("userarray").innerHTML = userarray;
+var nameselected1 = [];
+nameselected1 = nameselected.split('') ;
+
+for (var i =0 ; i < nameselected1.length; ){
+	if(userarray[i] == nameselected1[i]) {
+		i++;
+		if(i == nameselected1.length){
+			
+			win += 1;
+			document.getElementById("win").innerHTML = win;
+
+			document.getElementById("element").src = imgArray[randomnumber].src;
+			 randomnumber = Math.floor(Math.random() * 10);
+			 nameselected = arraynames[randomnumber];
+			 userarray = [];
+			 for (var i = 0 ; i < nameselected.length ; i ++){
+	         userarray[i] = "-";
+	         }
+	         numberofgusses = 0;
+	         
+	         document.getElementById("userarray").innerHTML = userarray;
+             return;
+
+             
+		}
+	}
+	else
+	{
+		break;
+	}
+	
+}
+
+}
+
+else {
+	
+    
+	userselection.push(userguess);
+	 for (var i = 0; i < userselection.length; i++) {
+	 	if(userselection.length >= 2){
+        if (userselection.indexOf(userselection[i]) !== userselection.lastIndexOf(userselection[i])) { 
+            userselection.splice(userselection.lastIndexOf(userselection[i]),1);
+            numberofgusses -= 1;
+            
+
+            
+
+        }
+
+    }
+
+    }
+    document.getElementById("log").innerHTML = userselection;
+    
+
+	
+	document.getElementById("nogr").innerHTML = 5 - numberofgusses;
+	if((5 - numberofgusses) == 0){
+		userselection = [];
+		randomnumber = Math.floor(Math.random() * 10);
+			 nameselected = arraynames[randomnumber];
+		for (var i = 0 ; i < nameselected.length ; i ++){
+	         userarray[i] = "-";
+	         }
+	         document.getElementById("userarray").innerHTML = userarray;
+	         userselection = [];
+	         document.getElementById("log").innerHTML = userselection;
+             
+		
+
+		numberofgusses = 0;
+		document.getElementById("nogr").innerHTML = 5 - numberofgusses;
+		return ;
+	}
+}
+
+
+
+
+
+
+	
+}
+
+
+
+</script>
+
+</body>
+
+</html>
